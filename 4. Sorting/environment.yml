@@ -1,0 +1,13 @@
+name: klusta
+dependencies:
+  - python
+  - pip
+  - numpy
+  - scipy
+  - h5py
+  - six
+  - cython
+  - pip:
+    - klustakwik2
+    - tqdm
+    - click
