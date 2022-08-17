@@ -14,3 +14,5 @@ Omega_fcsv.m and Patamon_fcsv: get fcsv files from 1 to 200 screws
 RunDriverUnit.m: read single unit or muti unit channel number from excel
 
 RunSelectGoodData.m: define good data as len(SU) > 8 && len(SU)+len(MU) >= 20, return good data date
+
+combine_good_data.py: combine data of good data date
