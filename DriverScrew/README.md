@@ -4,6 +4,8 @@ RunRecords.m: read all omega excel records and get screws and depth of every day
 read_omega_depth.py: read depth records for each channel of all days, save as validDepth.csv
 
 read_omega_records.py: add BrainArea to DriverRecord.csv and save as DriverRecord.pkl
+
+conclude_omega_neuralData.py: conclusion omega neural data, the number of units for each brain area
 # archive
 Check_Records_Before_20210628.m: check whether Omega big table has bug
 
@@ -16,3 +18,4 @@ RunDriverUnit.m: read single unit or muti unit channel number from excel
 RunSelectGoodData.m: define good data as len(SU) > 8 && len(SU)+len(MU) >= 20, return good data date
 
 combine_good_data.py: combine data of good data date
+
