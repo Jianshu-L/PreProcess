@@ -1,3 +1,4 @@
 # Data
+ ScrewsRecord: screws record for Omega and Patamon in excel format
 
-Put your data here. By default, this folder won't be put into version control.
+ BrainDepthOmega: brain areas depth of every valid channels in Omega
