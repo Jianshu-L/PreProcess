@@ -17,7 +17,11 @@ classdef BEVdata < ListData
                 fprintf("exclude %s folder\n", eF);
             end
             obj.folder = folders;
-            obj.order;
+            if isempty(obj.folder)
+                fprintf("*** not any valid folders ***\n")
+            else
+                obj.order;
+            end
         end
         
         function data = loadRawData(obj)
