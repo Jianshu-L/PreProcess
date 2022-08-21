@@ -68,42 +68,40 @@ def ModeTransfer(data):
     g2 = data['ghosts']['mode'][:,1]
     g3 = data['ghosts']['mode'][:,2]
     g4 = data['ghosts']['mode'][:,3]
-    g1_new = g1
-    g2_new = g2
-    g3_new = g3
-    g4_new = g4
+    g1_new = np.ones(len(g1)) * -1
+    g2_new = np.ones(len(g2)) * -1
+    g3_new = np.ones(len(g3)) * -1
+    g4_new = np.ones(len(g4)) * -1
     # flash parameter
     i_ = np.floor((data['energizer']['duration'][:]-data['energizer']['count'][:])/ \
         data['energizer']['flashInterval'][:])
     # chasing or corner parameter
-    dx = np.squeeze(data['pacMan']['tile_x'][:]) - (data['ghosts']['tile_x'][:,2] + data['ghosts']['dir_x'][:,2])
-    dy = np.squeeze(data['pacMan']['tile_y'][:]) - (data['ghosts']['tile_y'][:,2] + data['ghosts']['dir_y'][:,2])
+    dx = np.squeeze(data['pacMan']['tile_x'][:]) - (data['ghosts']['tile_x'][:,1] + data['ghosts']['dir_x'][:,1])
+    dy = np.squeeze(data['pacMan']['tile_y'][:]) - (data['ghosts']['tile_y'][:,1] + data['ghosts']['dir_y'][:,1])
     dist = dx*dx+dy*dy
 
-    index = np.array([g1_i == 0 or g1_i == 4 or g1_i == 5 for g1_i in g1])
-    g1_new[data['ghosts']['scared'][:,0] == 0 & index] = 1 # chasing pacman
-    index = np.array([g1_i == 1 or g1_i == 2 or g1_i == 3 for g1_i in g1])
-    g1_new[index] = 3; # dead ghosts (include ghosts are being eaten)
+    index = (g1 == 0) | (g1 == 4) | (g1 == 5)
+    g1_new[(data['ghosts']['scared'][:,0] == 0) & index] = 1 # chasing pacman
+    g1_new[(g1 == 1) | (g1 == 2) | (g1 == 3)] = 3; # dead ghosts (include ghosts are being eaten)
     g1_new[np.squeeze(i_ > 2*data['energizer']['flashes'][:]-1) & (data['ghosts']['scared'][:,0] == 1)] = 4; # scared ghosts
     g1_new[np.squeeze(i_ <= 2*data['energizer']['flashes'][:]-1) & (data['ghosts']['scared'][:,0] == 1)] = 5; # flash scared ghosts
 
     index = np.array([g2_i == 0 or g2_i == 4 or g2_i == 5 for g2_i in g2])
-    g2_new[dist >= 64 & (data['ghosts']['scared'][:,1] == 0) & index] = 1; # chasing pacman
-    g2_new[dist < 64 & (data['ghosts']['scared'][:,1] == 0) & index] = 2; # going corner
+    g2_new[(dist >= 64) & (data['ghosts']['scared'][:,1] == 0) & index] = 1; # chasing pacman
+    g2_new[(dist < 64) & (data['ghosts']['scared'][:,1] == 0) & index] = 2; # going corner
     index = np.array([g2_i == 1 or g2_i == 2 or g2_i == 3 for g2_i in g2])
     g2_new[index] = 3; # dead ghosts (include ghosts are being eaten)
     g2_new[np.squeeze(i_ > 2*data['energizer']['flashes'][:]-1) & (data['ghosts']['scared'][:,1] == 1)] = 4; # scared ghosts
     g2_new[np.squeeze(i_ <= 2*data['energizer']['flashes'][:]-1) & (data['ghosts']['scared'][:,1] == 1)] = 5; # flash scared ghosts
 
     index = np.array([g3_i == 0 or g3_i == 4 or g3_i == 5 for g3_i in g3])
-    g3_new[data['ghosts']['scared'][:,2] == 0 & index] = 1 # chasing pacman
-    index = np.array([g3_i == 1 or g3_i == 2 or g3_i == 3 for g3_i in g3])
-    g3_new[index] = 3; # dead ghosts (include ghosts are being eaten)
+    g3_new[(data['ghosts']['scared'][:,2] == 0) & index] = 1 # chasing pacman
+    g3_new[(g3 == 1) | (g3 == 2) | (g3 == 3)] = 3; # dead ghosts (include ghosts are being eaten)
     g3_new[np.squeeze(i_ > 2*data['energizer']['flashes'][:]-1) & (data['ghosts']['scared'][:,2] == 1)] = 4; # scared ghosts
     g3_new[np.squeeze(i_ <= 2*data['energizer']['flashes'][:]-1) & (data['ghosts']['scared'][:,2] == 1)] = 5; # flash scared ghosts
     
     index = np.array([g4_i == 0 or g4_i == 4 or g4_i == 5 for g4_i in g4])
-    g4_new[data['ghosts']['scared'][:,3] == 0 & index] = 1 # chasing pacman
+    g4_new[(data['ghosts']['scared'][:,3] == 0) & index] = 1 # chasing pacman
     index = np.array([g4_i == 1 or g4_i == 2 or g4_i == 3 for g4_i in g4])
     g4_new[index] = 3; # dead ghosts (include ghosts are being eaten)
     g4_new[np.squeeze(i_ > 2*data['energizer']['flashes'][:]-1) & (data['ghosts']['scared'][:,3] == 1)] = 4; # scared ghosts
