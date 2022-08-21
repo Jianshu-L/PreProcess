@@ -11,10 +11,12 @@ classdef combineNEV < ListData
     end
     
     methods
-        function obj = combineNEV(BEVpath, BRpath, dataPath)
+        function obj = combineNEV(dataPath, BEVpath, BRpath)
             obj = obj@ListData(dataPath, 'mat');
-            obj.BEV = ListData(BEVpath, 'mat');
-            obj.BR = ListData(BRpath, 'mat');
+            if nargin == 3
+                obj.BEV = ListData(BEVpath, 'mat');
+                obj.BR = ListData(BRpath, 'mat');
+            end
         end
         
         function set.report(obj, BRreport)

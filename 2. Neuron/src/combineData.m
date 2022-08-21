@@ -4,7 +4,7 @@ if ~exist(dataPath, "dir")
     mkdir(dataPath)
 end
 %% Combine all data
-obj = combineNEV(BEVpath, BRpath, dataPath);
+obj = combineNEV(dataPath, BEVpath, BRpath);
 saveName = obj.BEV.file;
 files = strcat(dataPath, '/', saveName);
 bugFiles = zeros(length(files),1);
