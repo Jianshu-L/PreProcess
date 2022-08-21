@@ -29,7 +29,9 @@ classdef combineBEV < ListData
         end
         
         function data = combine(obj, BEVdata, ELdata)
-            load(BEVdata, 'Data');
+            load(BEVdata, 'data');
+            Data = data;
+            clear data
             elX = ones(height(Data),1)*-1;
             elY = ones(height(Data),1)*-1;
             data_ = table(elX,elY);

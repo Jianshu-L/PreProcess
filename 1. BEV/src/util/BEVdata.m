@@ -40,7 +40,7 @@ classdef BEVdata < ListData
                 end
             end
             temp = split(obj.folderName, '-');
-            time_ = datetime(join(temp(2:4), '-'));
+            time_ = datetime(join(temp(2:4), '-'),'Locale','en_US');
             if time_ <= obj.time_cp
                 error("data is too old")
             end
@@ -154,14 +154,14 @@ classdef BEVdata < ListData
             end
         end
         
-        function saveData(~, path, Name, Data)
+        function saveData(~, path, Name, data)
             % read raw data and save per folder
             Path = path;
             file_ = strcat(Path, '/', Name);
             if exist(file_,'file')
                 error("%s exists, pass\n", Name)
             else
-                save(file_, 'Data');
+                save(file_, 'data');
 %                 fprintf("===== save %s =====\n", Name)
             end
         end
@@ -260,8 +260,8 @@ classdef BEVdata < ListData
                 end
                 fileList = obj.choose_PerWell_range(files, 1, wellNum);
                 if isempty(fileList)
-%                     fprintf('pass, no well data in the folder %s\n', obj.folderName)
-%                     fprintf('***************\n')
+                    fprintf('pass, no well data in the folder %s\n', obj.folderName)
+                    fprintf('***************\n')
                     rmdir(folder_name);
                     continue
                 end
