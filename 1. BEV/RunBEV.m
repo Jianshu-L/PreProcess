@@ -1,18 +1,17 @@
-function mouseData = RunBEV(bevPath, elPath)
+function mouseData = RunBEV(dataPath, elPath)
 %% default input
+if nargin ~= 1
+    dataPath = "E:/Behaviour";
+end
 if nargin ~= 2
-    bevPath = "E:/Behaviour";
     elPath = "E:/Eyelink";
 end
-bevPath = strrep(bevPath,"\","/");
+dataPath = strrep(dataPath,"\","/");
 elPath = strrep(elPath,"\","/");
 %% translate Behaviour data
 addpath(genpath(("src")));
-for Monkey = ["Omega","Patamon"]
-    dataPath = strcat(bevPath, "/", Monkey);
-    savePath = strcat("results/BEVdata/", Monkey);
-    translateBev(Monkey, dataPath, savePath);
-end
+savePath = strcat("results/BEVdata");
+translateBev(dataPath, savePath);
 rmpath(genpath(("src")));
 %% translate Eyelink data
 addpath(genpath(("src")));

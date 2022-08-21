@@ -1,6 +1,6 @@
-function translateBev(Monkey, BEVpath, savePath)
+function translateBev(BEVpath, savePath)
 %% path variable
-wellPath = strcat("data/wellData/", Monkey);
+wellPath = "data/wellData";
 if ~exist(wellPath, "dir")
     mkdir(wellPath)
 end
@@ -8,9 +8,6 @@ end
 % copy well
 fprintf("=====copy data=====\n")
 obj = BEVdata(BEVpath,'mat');
-if ~exist(wellPath, 'dir')
-    mkdir(wellPath)
-end
 obj.copywell(10,wellPath);
 %% Preprocss well Behaviour data
 % init variables
