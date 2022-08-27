@@ -1,7 +1,10 @@
+function basic_run_BEV(BEVpath, savePath)
+if nargin == 0
+    BEVpath = "../data";
+    savePath = strcat("../results/BEVdata");
+end
 %% basic using of BEVdata
 addpath(genpath(("src")));
-BEVpath = "D:\data\Detron";
-savePath = strcat("results/BEVdata");
 if ~exist(savePath, "dir")
     mkdir(savePath)
 end
@@ -18,6 +21,7 @@ parfor i = 1:length(obj.folder)
     % read raw data and save
     Data = readFiles(i, obj);
     obj.saveData(savePath, saveName(i), Data);
+end
 end
 
 function Data = readFiles(i, obj)

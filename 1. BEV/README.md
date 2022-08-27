@@ -1,17 +1,30 @@
+# Code description
+## basic_run_BEV
+    预处理原始行为数据
 
-# RunBEV
-pre-process raw behaviour data and eyelink data. Default input is bevPath=data/Behaviour, elPath=data/Eyelink
+    Args:
+        BEVpath: 原始行为数据所在的文件夹, 默认"../data"
+        savePath: 处理完成后生成的数据的文件夹, 默认"../results/BEVdata"
 
-* translate Behaviour data: 提取10个run以内吃完所有豆子的game("data/wellData")，debug一些数据问题(newData = Trans(~,oldData))，读取所有重要的game information以及subjects' input并储存在"savePath"
+    Returns:
+        位于savePath的mat数据
 
-* translate Eyelink data: reading eyelink information and marker from .asc(saving in "savePath"), return mouseData(report of eyelink data)
-
-* combine data: combine behaviour data and eyelink data. If eyelink data is missing, filled with (-1,-1). return combineDiary and update mouseData
+TODO: basic_run_EL and basic_run_combine
 
 # Data description(Output)
 
-## Well data(data/wellData)
-Selecting the data as well data that monkey tried less than 10 times to complete the game(eating all dots).
+## Behaviour data(results/BEVdata)
+no elX and elY Data
+
+## Eyelink data(results/Eyelink)
+#### Sample
+* timestep: The first two columns are eye position data (x,y) of every "Step" in pixel, top left is (0,0). Third column is pupil size reported as pupil area. The last column is used for frame bug detect.
+* trial: 'TRIAL 1-1'
+#### Event
+* sacc_timestep and fix_timestep: The "Step" of the first and last sample in the saccade or fixation
+* fix: all data related with fixation event. 4-5 columns is (x,y) position.
+* sacc: all data related with saccade event. 4-7 columns is Start and End (x,y) position.
+* trial: 'TRIAL 1-1'
 
 ## Combined data(results/data)
 
@@ -40,21 +53,19 @@ Selecting the data as well data that monkey tried less than 10 times to complete
 
 * elX, elY: eye position data from "Sample". Missing data is filled with (-1,-1)
 
-## Behaviour data(results/BEVdata)
-no elX and elY Data
-
-## Eyelink data(results/Eyelink)
-### Sample
-* timestep: The first two columns are eye position data (x,y) of every "Step" in pixel, top left is (0,0). Third column is pupil size reported as pupil area. The last column is used for frame bug detect.
-* trial: 'TRIAL 1-1'
-
-### Event
-* sacc_timestep and fix_timestep: The "Step" of the first and last sample in the saccade or fixation
-* fix: all data related with fixation event. 4-5 columns is (x,y) position.
-* sacc: all data related with saccade event. 4-7 columns is Start and End (x,y) position.
-* trial: 'TRIAL 1-1'
+## Well data(data/wellData)
+Selecting the data as well data that monkey tried less than 10 times to complete the game(eating all dots).
 
 ## Report
 * ppELDiary: print frame bug information when translating eyelink data
 * combineDiary: print missing data when combine behaviour data and eyelink data
 * mouseData.mat: contains eyelink data names of mouse simulation data, bug data and missing data
+
+# RunBEV
+pre-process raw behaviour data and eyelink data. Default input is bevPath=data/Behaviour, elPath=data/Eyelink
+
+* translate Behaviour data: 提取10个run以内吃完所有豆子的game("data/wellData")，debug一些数据问题(newData = Trans(~,oldData))，读取所有重要的game information以及subjects' input并储存在"savePath"
+
+* translate Eyelink data: reading eyelink information and marker from .asc(saving in "savePath"), return mouseData(report of eyelink data)
+
+* combine data: combine behaviour data and eyelink data. If eyelink data is missing, filled with (-1,-1). return combineDiary and update mouseData
