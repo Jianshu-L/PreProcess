@@ -38,6 +38,9 @@ classdef ListData < handle
             end
             %% List obj.path contents
             dirPath = struct2table(dir(obj.path));
+            if height(dirPath) == 0
+                error("nothing in %s",obj.path)
+            end
             dirPath = dirPath(~startsWith(dirPath.name,"."),:);
             dirPath = dirPath(~(dirPath.name == "$RECYCLE.BIN"),:);
             dirPath = dirPath(~(dirPath.name == "System Volume Information"),:);
