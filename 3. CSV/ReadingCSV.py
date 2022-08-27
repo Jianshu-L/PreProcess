@@ -92,7 +92,9 @@ def ItoP(Index):
 
 
 def toPkl(arguments):
-    dataname,rewardname,mapname,rawPath = arguments
+    dataname,rewardname,mapname,dataPath,Type = arguments
+    if Type not in ["csv", "pickle"]:
+        raise ValueError(f"Type should be csv or pickle, not {Type}")
     # transform data for python user and save it
     df = pd.read_csv(rawPath + dataname)
     dfR = pd.read_csv(rawPath + rewardname)
@@ -121,9 +123,12 @@ def toPkl(arguments):
     if dfM.shape[0] != dataFrame.shape[0]:
         raise Exception("Map: length is not equal")
     dataFrame["Map"] = dfM
-    print("save " + dataname.replace(".csv", ".pickle"))
-    dataFrame.to_csv(dataPath+dataname)
-    dataFrame.to_pickle(dataPath+dataname.replace(".csv", ".pickle"))
+    if Type == "csv":
+        print("save " + dataname)
+        dataFrame.to_csv(dataname)
+    elif Type == "pickle":
+        print("save " + dataname.replace(".csv", ".pickle"))
+        dataFrame.to_pickle(dataname.replace(".csv", ".pickle"))
     return
 
 
@@ -132,7 +137,10 @@ def toPkl(arguments):
 if __name__ == '__main__':
     # "/mnt/e/data_2021/3. CSV/results/csv/"
     rawPath = sys.argv[1]
-    dataPath = "results/"
+    Type = sys.argv[2]
+    dataPath = "../results/"
+    if len(sys.argv) == 2:
+        Type = "pickle"
     if not os.path.exists(dataPath):
         os.makedirs(dataPath)
     filenames = os.listdir(rawPath)
@@ -143,14 +151,17 @@ if __name__ == '__main__':
         datanames.sort()
         rewardnames = [dataname.replace(".csv", "-R.csv") for dataname in datanames]
         mapnames = [dataname.replace(".csv", "-M.csv") for dataname in datanames]
-        rawPaths = list([rawPath]) * len(datanames)
-        arguments = zip(datanames,rewardnames,mapnames,rawPaths)
-        # main loop
-        pool_obj = multiprocessing.Pool()
-        pool_obj.map(toPkl,arguments)
-        # for argument in arguments:
-        #     toPkl(argument)
+        dataPaths = list([dataPath]) * len(datanames)
+        Types = [Type] * len(datanames)
+        arguments = zip(datanames,rewardnames,mapnames,dataPaths,Types)
+        # parallell computing for loop
+        # pool_obj = multiprocessing.Pool()
+        # pool_obj.map(toPkl,arguments)
+        for argument in arguments:
+            toPkl(argument)
 
+
+# %%
 
     # In[9]:
 
@@ -179,3 +190,4 @@ if __name__ == '__main__':
     # pool_obj.map(checkHeigth,arguments)
     for argument in arguments:
         checkHeigth(argument)
+    print("finish test")
