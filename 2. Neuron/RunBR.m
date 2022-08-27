@@ -32,4 +32,5 @@ else
     NEVreport = [NEVreport;NEVreport_];
 end
 rmpath(genpath("src"));
+diary off
 end
