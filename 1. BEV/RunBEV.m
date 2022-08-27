@@ -1,17 +1,19 @@
 function mouseData = RunBEV(dataPath, elPath)
 %% default input
-if nargin ~= 1
-    dataPath = "E:/Behaviour";
-end
-if nargin ~= 2
-    elPath = "E:/Eyelink";
+if nargin == 0
+    dataPath = "../data/Omega";
+    elPath = "../data/Eyelink";
 end
 dataPath = strrep(dataPath,"\","/");
 elPath = strrep(elPath,"\","/");
+%% select well data
+addpath(genpath(("src")));
+BEVpath = selectWell(dataPath);
+rmpath(genpath(("src")));
 %% translate Behaviour data
 addpath(genpath(("src")));
-savePath = strcat("results/BEVdata");
-translateBev(dataPath, savePath);
+% process data
+translateBev(BEVpath);
 rmpath(genpath(("src")));
 %% translate Eyelink data
 addpath(genpath(("src")));
@@ -19,11 +21,8 @@ addpath(genpath(("src")));
 diaryName = sprintf("ppELDiary-%s", date);
 eval(sprintf("diary %s",diaryName));
 diary on
-for Monkey = ["Omega","Patamon"]
-    dataPath = strcat(elPath, "/", Monkey);
-    savePath = strcat("results/Eyelink/", Monkey);
-    mouseData = translateEl(dataPath, savePath);
-end
+% process data
+mouseData = translateEl(elPath); %#ok<NASGU>
 rmpath(genpath(("src")));
 diary off
 %% combine data
@@ -32,15 +31,13 @@ addpath(genpath(("src")));
 diaryName = sprintf("combineDiary-%s", date);
 eval(sprintf("diary %s",diaryName));
 diary on
-for Monkey = ["Omega","Patamon"]
-    % init variables
-    BEVpath = strcat("results/BEVdata/", Monkey);
-    ELpath = strcat("results/Eyelink/", Monkey);
-    dataPath = strcat("results/data/", Monkey);
-    mouseData = combineData(BEVpath, ELpath, dataPath);
-end
+% init variables
+BEVpath = "../results/BEVdata/";
+ELpath = "../results/Eyelink/";
+mouseData = combineData(BEVpath, ELpath);
+%% test data
 addpath("test")
-test_data("results/data","results/Eyelink");
+test_data("../results/data","../results/Eyelink");
 rmpath("test")
 rmpath(genpath(("src")));
 diary off

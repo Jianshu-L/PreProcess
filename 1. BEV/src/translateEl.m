@@ -1,5 +1,6 @@
-function mouseData = translateEl(elPath, savePath)
+function mouseData = translateEl(elPath)
 %% Preprocss Eyelink Data
+savePath = "../results/Eyelink/";
 % read EL data
 fprintf("=====read eyelink data=====\n")
 % init variables

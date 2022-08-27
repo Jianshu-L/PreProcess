@@ -1,5 +1,6 @@
-function mouseData = combineData(BEVpath, ELpath, dataPath)
+function mouseData = combineData(BEVpath, ELpath)
 %% init variables
+dataPath = "../results/data/";
 if ~exist(dataPath, "dir")
     mkdir(dataPath)
 end

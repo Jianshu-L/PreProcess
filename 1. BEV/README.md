@@ -1,15 +1,33 @@
 # Code description
-## basic_run_BEV
-    预处理原始行为数据
+## translateBev
+    预处理原始行为数据,储存在results/BEVdata中
 
     Args:
-        BEVpath: 原始行为数据所在的文件夹, 默认"../data"
-        savePath: 处理完成后生成的数据的文件夹, 默认"../results/BEVdata"
+        BEVpath: 原始行为数据所在的文件夹
 
     Returns:
-        位于savePath的mat数据
+        位于"results/BEVdata"的mat数据
 
-TODO: basic_run_EL and basic_run_combine
+## translateEl
+    预处理原始眼动数据，储存在results/Eyelink中
+
+    Args:
+        elPath: 原始眼动数据所在的文件夹
+
+    Returns:
+        位于"results/Eyelink"的mat数据
+        mouseData: 关于bug眼动数据的说明
+
+## combineData
+    合并处理后的眼动数据和行为数据，储存在results/data中
+
+    Args:
+        BEVpath: 处理后的行为数据所在的文件夹，默认"../results/BEVdata/"
+        ELpath: 处理后的眼动数据所在的文件夹，默认"../results/Eyelink/"
+
+    Returns:
+        位于"results/data"的mat数据
+        mouseData: 关于bug眼动数据的说明
 
 # Data description(Output)
 
