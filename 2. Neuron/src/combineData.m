@@ -1,5 +1,6 @@
-function NEVreport = combineData(BEVpath, BRpath, dataPath)
+function NEVreport = combineData(BEVpath, BRpath)
 %% init variables
+dataPath = "../results/data_neuron";
 if ~exist(dataPath, "dir")
     mkdir(dataPath)
 end
@@ -35,8 +36,10 @@ end
 if sum(bugFiles) ~= 0
     [~,missFiles] = obj.FtoN(saveName(logical(bugFiles)));
     for missFile = missFiles'
-        if contains(BRreport(:,1),missFile)
-            continue
+        if ~isempty(BRreport)
+            if contains(BRreport(:,1),missFile)
+                continue
+            end
         end
         temp = size(BRreport);
         i_ = temp(1)+1;

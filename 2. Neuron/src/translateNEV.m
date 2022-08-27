@@ -1,17 +1,19 @@
-function BRreport = translateNEV(dataPath, archivePath, savePath)
-fprintf("=====neuron marker data=====\n")
+function BRreport = translateNEV(dataPath)
 %% init variables
+archivePath = strcat(dataPath,"/Eve"); % BR Eve marker path
+savePath = "../results/Neuron";
 if ~exist(archivePath, "dir")
     mkdir(archivePath)
 end
+if ~exist(savePath, "dir")
+    mkdir(savePath)
+end
 %% read raw nev data and save in archivePath
+fprintf("=====neuron marker data=====\n")
 fprintf("nev to mat\n")
 nev2mat(dataPath, archivePath);
 %% read neuron marker data
 % init variables
-if ~exist(savePath, "dir")
-    mkdir(savePath)
-end
 obj = BRdata(archivePath,'mat');
 saveName = strrep(obj.file, 'Eve', 'Marker');
 % init report

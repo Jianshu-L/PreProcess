@@ -1,7 +1,11 @@
-function [BRreport,NEVreport] = RunBR(dataPath, BEVpath)
+function [BRreport,NEVreport] = RunBR(BEVpath, BRpath)
 %% default input
-dataPath = strrep(dataPath,"\","/");
+if nargin == 0
+    BEVpath = "../results/data";
+    BRpath = "../data";
+end
 BEVpath = strrep(BEVpath,"\","/");
+BRpath = strrep(BRpath,"\","/");
 %% translate data
 addpath(genpath("src"));
 % create diary
@@ -9,9 +13,7 @@ diaryName = sprintf("ppBRDiary-%s", date);
 eval(sprintf("diary %s",diaryName));
 diary on
 % main
-archivePath = strcat(dataPath,"/Eve"); % BR Eve marker path
-savePath = "results/Neuron";
-BRreport = translateNEV(dataPath, archivePath, savePath);
+BRreport = translateNEV(BRpath);
 rmpath(genpath("src"));
 diary off
 %% combine data
@@ -22,9 +24,8 @@ eval(sprintf("diary %s",diaryName));
 diary on
 % main loop
 NEVreport = strings(0);
-BRpath = "results/Neuron";
-savePath = "results/data";
-NEVreport_ = combineData(BEVpath, BRpath, savePath);
+BRpath = "../results/Neuron";
+NEVreport_ = combineData(BEVpath, BRpath);
 if isempty(NEVreport)
     NEVreport = NEVreport_;
 else
