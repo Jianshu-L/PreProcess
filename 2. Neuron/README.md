@@ -1,21 +1,21 @@
 # Code description
 
 ##  translateNEV
-    预处理神经元marker数据,储存在results/Neuron中
+    预处理NEV中的marker数据,储存在"results/Neuron"中
 
     Args:
-        dataPath: 神经元Marker数据所在的文件夹
+        dataPath: NEV数据所在的文件夹
 
     Returns:
-        位于"results/Neuron"的mat数据
+        位于"results/Neuron"的BR marker data (mat)
         BRreport: 关于bug marker的说明
 
 ## combineData
-    合并处理后的神经元marker数据和BEVpath中的数据，储存在results/data_neuron中
+    合并BR marker data和BEVpath中的数据，储存在results/data_neuron中
 
     Args:
         BEVpath: 处理后的行为数据所在的文件夹，默认"../results/data/"
-        BRpath: 处理后的神经元marker数据所在的文件夹，默认"../results/Neuron/"
+        BRpath: BR marker data所在的文件夹，默认"../results/Neuron/"
 
     Returns:
         位于"results/data_neuron"的mat数据
