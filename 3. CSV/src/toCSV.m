@@ -15,18 +15,24 @@ parfor i = 1:length(fileNames)
 %         continue
 %     end
     try
-        [data,rewP] = readFiles(file_i);
-        Map = table(data.Map);
-        writetable(Map,strrep(csv_i,".mat","-M.csv"));
+        data = readFiles(file_i);
+        % save as csv
         writetable(data, strrep(csv_i,'.mat', '.csv'))
-        writetable(rewP, strrep(csv_i,'.mat', '-R.csv'))
     catch ME
         fprintf("*******%s*******\n",ME.message)
     end
 end
 end
 
-function [data,rewP] = readFiles(file_i)
-load(file_i, "data");
-[data,rewP] = Mat2Csv(data); %#ok<NODEF>
+function data = readFiles(file_i)
+    load(file_i, "data");
+    %% fix [14,20] & [15,20] bug
+    g1 = data.ghost1(:,1:2);
+    g2 = data.ghost2(:,1:2);
+    data.ghost1(sum(g1 == [14,20],2) == 2,2) = 19;
+    data.ghost2(sum(g2 == [14,20],2) == 2,2) = 19;
+    g1 = data.ghost1(:,1:2);
+    g2 = data.ghost2(:,1:2);
+    data.ghost1(sum(g1 == [15,20],2) == 2,2) = 19;
+    data.ghost2(sum(g2 == [15,20],2) == 2,2) = 19;
 end
