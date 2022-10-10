@@ -7,16 +7,11 @@ assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**简单描述bug**
+简单描述bug
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Upload related files (data sample, code ,etc)
-2. Describe how to reproduce bug step by step
+**如何复现bug**
+描述如何复现bug，比如运行的代码是什么，流程等。如果数据不大的话，最好也上传相关数据。
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
-
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**其他相关文件**
+截图，或者数据描述
