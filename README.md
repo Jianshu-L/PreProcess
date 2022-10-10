@@ -18,6 +18,22 @@
   ## 3. CSV
    - toCSV: 将所有mat格式的table数据储存成csv文件。包含函数Mat2Csv
 
-   - ReadingCSV.py: convert csv data to pickle or csv for python users, save in current folder
+   - ReadingCSV.py: 将csv数据转换成适合python使用的数据格式(tuple), 储存在results/data中
 
-   ## TODO Features, Combine和DriverScrew的代码均改为python，使用统一的src，写好readme
+  ## 4. Sorting
+   TODO
+
+  ## 5. Combine 
+- add_fr.py: join sorting resutls to python users data, save in current folder
+
+    
+
+        Args:
+            RAWPATH: sorting结果所在的文件夹，默认"data/sorting/results/spikes"
+            
+            DATAPATH: ReadingCSV.py输出文件所在的文件夹，默认"results/data"
+
+        Returns:
+            csv data or pickle data in current folder
+
+## TODO Features, Combine和DriverScrew的代码均改为python，使用统一的src，写好readme
