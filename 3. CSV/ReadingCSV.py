@@ -144,9 +144,9 @@ if __name__ == '__main__':
     if not os.path.exists(dataPath):
         os.makedirs(dataPath)
     filenames = os.listdir(rawPath)
-    datanames = [filename for filename in filenames
-                if not filename.endswith("R.csv") and not filename.endswith("M.csv")
-                and not filename in [dataname.replace("pickle","csv") for dataname in os.listdir(dataPath)]]
+    datanames = [filename for filename in filenames 
+                if filename.endswith("csv") and not filename in [dataname.replace("pickle","csv") \
+                                     for dataname in os.listdir(dataPath)]]
     if len(datanames) > 0:
         datanames.sort()
         rewardnames = [dataname.replace(".csv", "-R.csv") for dataname in datanames]
