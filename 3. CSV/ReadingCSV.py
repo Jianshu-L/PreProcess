@@ -20,9 +20,11 @@ def transData(df):
                     "beans": [ItoP(Index) for Index in bIndex],
                     "energizers": [ItoP(Index) for Index in eIndex],
                     "fruitPos": [get_fruit_pos(df['Map'][i]) for i in range(0,df.shape[0])],
-                    "fruitType": [get_fruit_type(df['Map'][i]) for i in range(0,df.shape[0])]
+                    "fruitType": [get_fruit_type(df['Map'][i]) for i in range(0,df.shape[0])],
                 })
-    return pd.DataFrame(data)
+    df_info = df.iloc[:,np.where(df.columns.values == 'waterTS')[0][0]:]
+    df_info["Map"] = df["Map"]
+    return pd.DataFrame(data).join(df_info)
 
 def tuple_list(l):
     return [tuple(a) for a in l]
@@ -132,8 +134,8 @@ if __name__ == '__main__':
     if not os.path.exists(dataPath):
         os.makedirs(dataPath)
     filenames = os.listdir(rawPath)
-    datanames = [filename for filename in filenames
-                if not filename in [dataname.replace("pickle","csv") \
+    datanames = [filename for filename in filenames 
+                if filename.endswith("csv") and not filename in [dataname.replace("pickle","csv") \
                                      for dataname in os.listdir(dataPath)]]
     if len(datanames) > 0:
         datanames.sort()
