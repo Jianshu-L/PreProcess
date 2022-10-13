@@ -16,8 +16,8 @@
   - combineData: 合并处理后的神经元marker数据和BEVpath中的数据，储存在results/data_neuron中。包含combineNEV类
 
   ## 3. CSV
-   - toCSV: 将所有mat格式的table数据储存成3个csv文件。包含函数Mat2Csv
+   - toCSV: 将所有mat格式的table数据储存成csv文件。包含函数Mat2Csv
 
-   - ReadingCSV.py: convert three csv data to pickle or csv for python users, save in current folder
+   - ReadingCSV.py: convert csv data to pickle or csv for python users, save in current folder
 
-   ## TODO 整理合并spikeTrain与处理后的data的代码，并完成readme
+   ## TODO Features, Combine和DriverScrew的代码均改为python，使用统一的src，写好readme

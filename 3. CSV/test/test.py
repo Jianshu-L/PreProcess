@@ -1,20 +1,20 @@
+
 import sys
 import os
 import shutil
-import pandas as pd
-import numpy as np
-import pickle as pkl
 import multiprocessing
+import pandas as pd
+
 
 
 # test part
-def checkHeigth(arguments):
-    fileName,Size,dataPath = arguments
+def checkHeigth(arg):
+    fileName,Size,data_path = arg
     try:
-        df = pd.read_pickle(dataPath+fileName)
-    except:
+        df = pd.read_pickle(data_path+fileName)
+    except IOError:
         print("error load data "+fileName)
-        shutil.copyfile(dataPath+fileName, "./"+fileName)
+        shutil.copyfile(data_path+fileName, "./"+fileName)
         return
     if df.shape[0] != Size:
         print(fileName + " length not equal")
