@@ -1,16 +1,3 @@
-
-# Code description
-## RunMapConst.m:
-* Output is map_info.csv
-
-## create_adjacent_map.py
-* Input:  "results/constants/map_info.csv"
-* Output: "adjacent_map.pickle".
-
-## create_dij_distance_map.py
-* Input:  "results/constants/adjacent_map.pickle
-* Output: "dij_distance_map.pickle"
-
 ## extract_behaviour_features.py
 * Input: "results/constants/adjacent_map.pickle", "results/constants/dij_distance_map.pickle" and behaviour data "data/Omega" or "data/Patamon"
 * Output: features data 
