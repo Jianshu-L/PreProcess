@@ -50,8 +50,6 @@ if __name__ == "__main__":
         RAWPATH = sys.argv[1]
         DATAPATH = sys.argv[2]
 
-    if not os.path.exists("../Data/"):
-        os.makedirs("../Data/")
     dataFrame = DataProvider(DATAPATH,'pickle')
 
     for loops in dataFrame:
@@ -89,7 +87,7 @@ if __name__ == "__main__":
             # pickle
             pickle_name = dataFrame.fileName.replace(".pickle", "pFlip.pickle")
             print(f"save {pickle_name}")
-            Flip.to_pickle(f"../Data/{pickle_name}")
+            Flip.to_pickle(f"../{pickle_name}")
             # csv
             print("save "+dataFrame.fileName.replace(".pickle", "pFlip.csv"))
             Flip.to_csv(dataFrame.fileName.replace(".pickle", "pFlip.csv"))

@@ -28,7 +28,7 @@ from EvadeAgent import EvadeTree as EvadeAgent
 from GlobalAgent import SimpleGlobal as GlobalAgent
 from ApproachAgent import ApproachTree as ApproachAgent
 from EnergizerAgent import EnergizerTree as EnergizerAgent
-
+data_path = "../Constants"
 # ==================================================
 
 def _readData(filename):
@@ -331,7 +331,6 @@ def preEstimation(filename_list, save_base):
 
 if __name__ == '__main__':
     save_base = "../Data/TestExample/"
-    data_path = "../Constants"
     filename_list = [
         "../omegaL-01-Apr-2021-1pFlip.pickle"
     ]

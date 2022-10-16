@@ -8,8 +8,8 @@ sys.path.append("./Utils")
 from FileUtils import readAdjacentMap
 
 if __name__ == '__main__':
-    DATAPATH = "../Data/"
-    SAVEPATH = "../Data/TestExample/"
+    DATAPATH = "../"
+    SAVEPATH = "../TestExample/"
     if not os.path.exists(SAVEPATH):
         os.makedirs(SAVEPATH)
     file_name = "omegaL-01-Apr-2021-1pFlip"
