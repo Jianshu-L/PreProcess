@@ -1,4 +1,5 @@
 ## 注意，请使用英文版本的matlab，并在设置中将Datetime format的Locale改为en_US
+## 如需使用util中的类，需要"pip install -e ."加载util包
 # PreProcess Raw Data
 每个文件夹中的Run开头的代码，仅作为代码库的一个实例，并不适用新的数据。对于新的数据，请阅读每个文件夹的readme，使用下面的function和object参考Run代码重新编写
 
@@ -24,19 +25,30 @@
    TODO
 
   ## 5. Combine 
-- add_fr.py: join sorting resutls to python users data, save in current folder
+- add_fr.py: join sorting resutls to python users data, save in "../Data/" folder
 
     
 
         Args:
-            RAWPATH: sorting结果所在的文件夹，默认"data/sorting/results/spikes"
+            RAWPATH: sorting结果所在的文件夹，默认"../data/sorting/results/spikes"
             
-            DATAPATH: ReadingCSV.py输出文件所在的文件夹，默认"results/data"
+            DATAPATH: ReadingCSV.py输出文件所在的文件夹，默认"../results/data"
 
         Returns:
-            csv data or pickle data in current folder
-
-  ## Features
+            csv data or pickle data in "../Data/" folder
+# Hierarchical Decision-making Model
+## Features
 - get_constants_data.py: get constants map_info.csv, adjacent_map.csv and dij_distance_map.csv
 
-## DriverScrew和sorting写好readme
+## Analysis
+- Run.py: hierarchical decision-making model fitting
+
+        Args:
+            DATAPATH: combine结果所在的文件夹，默认"../"
+            
+            SAVEPATH: 输出文件所在的文件夹，默认"../Data/TestExample/"
+
+        Returns:
+            pickle data in SAVEPATH
+
+## TODO DriverScrew和sorting写好readme
