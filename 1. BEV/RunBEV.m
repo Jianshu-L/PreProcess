@@ -1,4 +1,4 @@
-function mouseData = RunBEV(dataPath, elPath)
+function RunBEV(dataPath, elPath)
 %% default input
 if nargin == 0
     dataPath = "../data/Omega";

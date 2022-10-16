@@ -1,3 +1,8 @@
+# Introduction
+   - toCSV: 将所有mat格式的table数据储存成csv文件。包含函数Mat2Csv
+
+   - ReadingCSV.py: 将csv数据转换成适合python使用的数据格式(tuple), 储存在results/data中
+
 # Code Description
 ## toCSV
     将所有mat格式的数据转成csv格式(fix [14,20] & [15,20] bug)

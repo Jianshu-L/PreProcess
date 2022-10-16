@@ -103,7 +103,7 @@ def check_variable_names(arg):
     return names
 
 def toPkl(arguments):
-    dataname,dataPath,Type = arguments
+    rawPath,dataname,dataPath,Type = arguments
     if Type not in ["csv", "pickle"]:
         raise ValueError(f"Type should be csv or pickle, not {Type}")
     # transform data for python user and save it
@@ -147,9 +147,10 @@ def run_script(rawPath, Type, dataPath):
                                      for dataname in os.listdir(dataPath)]]
     if len(datanames) > 0:
         datanames.sort()
+        rawPaths = list([rawPath]) * len(datanames)
         dataPaths = list([dataPath]) * len(datanames)
         Types = [Type] * len(datanames)
-        arguments = zip(datanames,dataPaths,Types)
+        arguments = zip(rawPaths, datanames,dataPaths,Types)
         # parallell computing for loop
         # pool_obj = multiprocessing.Pool()
         # pool_obj.map(toPkl,arguments)
@@ -160,7 +161,7 @@ def run_script(rawPath, Type, dataPath):
     fileNames = os.listdir(dataPath)
     fileNames.sort()
     fileNames = [fileName for fileName in fileNames if fileName.endswith("pickle")]
-    test_size = pd.read_csv("test/dataSize.csv")
+    test_size = pd.read_csv("3. CSV/test/dataSize.csv")
     test_size["fileNames"] = test_size["fileNames"].str.replace("mat", "pickle")
     size_list = test_size.loc[[name_ in fileNames for name_ in test_size["fileNames"]],\
                                "Height"].values.tolist()
@@ -175,15 +176,4 @@ def run_script(rawPath, Type, dataPath):
     if len(names) > 0:
         print(f"dataframe columns values: {names}")
     print("finish test")
-
-if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        rawPath = "../results/csv/"
-        Type = "pickle"
-        dataPath = "../results/data/"
-    else:
-        rawPath = sys.argv[1]
-        Type = sys.argv[2]
-        dataPath = "./"
     
-    run_script(rawPath, Type, dataPath)
