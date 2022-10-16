@@ -17,6 +17,9 @@ classdef combineNEV < ListData
                 obj.BEV = ListData(BEVpath, 'mat');
                 obj.BR = ListData(BRpath, 'mat');
             end
+            if isempty(obj.BR.file)
+                error("no nev data")
+            end
         end
         
         function set.report(obj, BRreport)
