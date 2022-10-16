@@ -1,3 +1,8 @@
+# Introduction
+- translateNEV: 预处理神经元marker数据，储存在results/Neuron中。包含函数nev2mat和BRdata类
+
+- combineData: 合并处理后的神经元marker数据和BEVpath中的数据，储存在results/data_neuron中。包含combineNEV类
+
 # Code description
 
 ##  translateNEV

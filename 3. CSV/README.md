@@ -1,9 +1,15 @@
+# Introduction
+   - toCSV: 将所有mat格式的table数据储存成csv文件。包含函数Mat2Csv
+
+   - ReadingCSV.py: 将csv数据转换成适合python使用的数据格式(tuple), 储存在results/data中
+
 # Code Description
 ## toCSV
     将所有mat格式的数据转成csv格式(fix [14,20] & [15,20] bug)
 
     Args:
         dataPath: 需要转换成csv的数据文件所在的文件夹，默认"../results/data_neuron/"
+        
         savePath: 储存csv的文件夹
 
     Returns:
@@ -16,13 +22,15 @@
         rawPath: toCSV输出的csv数据文件所在的文件夹，最好使用相对路径，默认"../results/csv/"(如果是windows下的路径格式，可能会产生bug)
         type: "pickle" or "csv" for output format
 
+        dataPath: output folder of csv data or pickle data, default "../results/data/"
+
     Returns:
-        csv data or pickle data in current folder
+        csv data or pickle data in dataPath
 
 # Data Description
 
 ## format pickle data or csv data
-- game information: `DayTrial`, `Step`
+- game information: `DayTrial`, `Step`, `file_name`, `Map`
 
 - positions in tuple: `pacmanPos`, `ghost1Pos`, `ghost2Pos`, `beans`, `energizers`, `fruitPos`
  
@@ -30,5 +38,11 @@
 
 - direction: `pacman_dir`, `JoyStick`
 - `fruitType`:  3 cherry, 4 strawberry, 5 orange, 6 apple, 7 melon
+
+- raw information: `ppX`, `ppY`, `pDir`,`pFrame`, `g1pX`, `g1pY`, `g1Dir`, `g1ModeR`, `g1Scared`,`g1Frame`, `g2pX`, `g2pY`, `g2Dir`, `g2ModeR`, `g2Scared`,`g2Frame`
+
+- marker and timestamp: `waterTS`, `waterStatus`, `waterDelay`,`BRts`, `JoyTs`, `RewdTs`
+
+- eye positions: `elX`, `elY`
 
 

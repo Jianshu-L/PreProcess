@@ -20,9 +20,11 @@ def transData(df):
                     "beans": [ItoP(Index) for Index in bIndex],
                     "energizers": [ItoP(Index) for Index in eIndex],
                     "fruitPos": [get_fruit_pos(df['Map'][i]) for i in range(0,df.shape[0])],
-                    "fruitType": [get_fruit_type(df['Map'][i]) for i in range(0,df.shape[0])]
+                    "fruitType": [get_fruit_type(df['Map'][i]) for i in range(0,df.shape[0])],
                 })
-    return pd.DataFrame(data)
+    df_info = df.iloc[:,np.where(df.columns.values == 'ppX')[0][0]:]
+    df_info["Map"] = df["Map"]
+    return pd.DataFrame(data).join(df_info)
 
 def tuple_list(l):
     return [tuple(a) for a in l]
@@ -76,9 +78,29 @@ def checkHeigth(arguments):
         return
     if df.shape[0] != Size:
         print(f"length not equal {fileName}")
-    else:
-        print(f"pass {fileName}")
     return
+
+def check_variable_names(arg):
+    fileName,Size,data_path = arg
+    names = np.array(['DayTrial', 'Step', 'pacmanPos', 'ghost1Pos', 'ghost2Pos',
+                'ifscared1', 'ifscared2', 'pacman_dir', 'JoyStick', 'beans',
+                'energizers', 'fruitPos', 'fruitType', 'ppX', 'ppY', 'pDir',
+                'pFrame', 'g1pX', 'g1pY', 'g1Dir', 'g1ModeR', 'g1Scared',
+                'g1Frame', 'g2pX', 'g2pY', 'g2Dir', 'g2ModeR', 'g2Scared',
+                'g2Frame', 'waterTS', 'waterStatus', 'waterDelay', 'elX', 'elY',
+                'BRts', 'JoyTs', 'RewdTs', 'file_name', 'Map'])
+    try:
+        df = pd.read_pickle(data_path+fileName)
+    except IOError:
+        print(f"error load data {fileName}")
+        return
+    if len(df.columns.values) != len(names):
+        print(f"***** {fileName} variables length not equal *****")
+        return []
+    if not all(df.columns.values == names):
+        print(f"***** {fileName} variables names not equal *****")
+        return []
+    return names
 
 def toPkl(arguments):
     dataname,dataPath,Type = arguments
@@ -116,19 +138,7 @@ def toPkl(arguments):
         dataFrame.to_pickle(dataPath + dataname.replace(".csv", ".pickle"))
     return
 
-
-# In[8]:
-
-if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        rawPath = "../results/csv/"
-        Type = "pickle"
-        dataPath = "../results/data/"
-    else:
-        rawPath = sys.argv[1]
-        Type = sys.argv[2]
-        dataPath = "./"
-    
+def run_script(rawPath, Type, dataPath):    
     if not os.path.exists(dataPath):
         os.makedirs(dataPath)
     filenames = os.listdir(rawPath)
@@ -161,4 +171,19 @@ if __name__ == '__main__':
     # pool_obj.map(checkHeigth,arguments)
     for argument in arguments:
         checkHeigth(argument)
+        names = check_variable_names(argument)
+    if len(names) > 0:
+        print(f"dataframe columns values: {names}")
     print("finish test")
+
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        rawPath = "../results/csv/"
+        Type = "pickle"
+        dataPath = "../results/data/"
+    else:
+        rawPath = sys.argv[1]
+        Type = sys.argv[2]
+        dataPath = "./"
+    
+    run_script(rawPath, Type, dataPath)

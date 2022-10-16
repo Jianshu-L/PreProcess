@@ -1,3 +1,12 @@
+每个文件夹中的Run开头的代码，仅作为代码库的一个实例，并不适用新的数据。对于新的数据，请阅读每个文件夹的readme，使用下面的function和object参考Run代码重新编写
+# Introduction
+ - translateBev: 预处理原始行为数据，储存在results/BEVdata中。使用了BEVdata类
+
+ - translateEl: 预处理原始眼动数据，储存在results/Eyelink中。使用了ELdata类
+
+
+ - combineData: 合并处理后的眼动数据和行为数据，储存在results/data中。使用了combineBEV类
+
 # Code description
 ## translateBev
     预处理原始行为数据,储存在results/BEVdata中

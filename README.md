@@ -1,23 +1,44 @@
 ## 注意，请使用英文版本的matlab，并在设置中将Datetime format的Locale改为en_US
 # PreProcess Raw Data
-每个文件夹中的Run开头的代码，仅作为代码库的一个实例，并不适用新的数据。对于新的数据，请阅读每个文件夹的readme，使用下面的function和object参考Run代码重新编写
+如果使用默认文件路径，可以直接运行`RunAll.py`完成预处理步骤1-3，猴子数据放在`data/MONKEY`下，眼动数据asc放在`data/Eyelink`下
+
+需要[install matlab engine for python](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html)
+
+并加载`util`包:  `"pip install -e ."`
 
 ## 1. BEV
- - translateBev: 预处理原始行为数据，储存在results/BEVdata中。使用了BEVdata类
-
- - translateEl: 预处理原始眼动数据，储存在results/Eyelink中。使用了ELdata类
-
-
- - combineData: 合并处理后的眼动数据和行为数据，储存在results/data中。使用了combineBEV类
+预处理原始行为数据和眼动数据，合并处理后的眼动数据和行为数据，储存在“results/data”中。
 
  ## 2. Neuron
-  - translateNEV: 预处理神经元marker数据，储存在results/Neuron中。包含函数nev2mat和BRdata类
-
-  - combineData: 合并处理后的神经元marker数据和BEVpath中的数据，储存在results/data_neuron中。包含combineNEV类
+预处理神经元marker数据，合并处理后的神经元marker数据与"1. BEV"生成的数据，储存在“results/data_neuron”中。
 
   ## 3. CSV
-   - toCSV: 将所有mat格式的table数据储存成csv文件。包含函数Mat2Csv
+将“results/data_neuron”中mat数据转成csv，并将csv数据转换成适合python使用的数据格式(tuple), 储存在“results/data”中
 
-   - ReadingCSV.py: convert csv data to pickle or csv for python users, save in current folder
+  ## 4. Sorting
+   TODO
 
-   ## TODO Features, Combine和DriverScrew的代码均改为python，使用统一的src，写好readme
+  ## 5. Combine 
+合并sorting数据，储存在当前文件夹“../”下
+
+
+
+# Hierarchical Decision-making Model
+## Features
+- get_constants_data.py: get constants 
+  - map_info.csv
+  - adjacent_map.csv
+  - dij_distance_map.csv
+
+## Analysis
+- Run.py: hierarchical decision-making model fitting
+
+        Args:
+            DATAPATH: combine结果所在的文件夹，默认"../"
+            
+            SAVEPATH: 输出文件所在的文件夹，默认"../TestExample/"
+
+        Returns:
+            pickle data in SAVEPATH
+
+## TODO DriverScrew和sorting写好readme

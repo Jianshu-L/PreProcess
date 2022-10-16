@@ -1,4 +1,4 @@
-function [BRreport,NEVreport] = RunBR(BEVpath, BRpath)
+function RunBR(BEVpath, BRpath)
 %% default input
 if nargin == 0
     BEVpath = "../results/data";
