@@ -226,7 +226,7 @@ class DataProvider(DataTool):
     def getChan(self):
         """get spikes for every channel"""
         df = self.df
-        chanData = df.filter(regex="Ch_").fillna(0) # all channels firing rate
+        chanData = df.filter(regex="Ch\d*_").fillna(0) # all channels firing rate
         return chanData
 
     def getChanCount(self, Unit):
