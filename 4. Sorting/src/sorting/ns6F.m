@@ -19,7 +19,7 @@ classdef ns6F < handle
             if ~exist(savePath, "dir")
                 mkdir(savePath);
             end
-            if ~exist(archivePath, "dir")
+            if ~exist(archivePath, "dir") && ~isempty(archivePath)
                 mkdir(archivePath);
             end
             obj.Monkey = Monkey;

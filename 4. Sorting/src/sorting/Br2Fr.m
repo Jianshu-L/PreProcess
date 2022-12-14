@@ -45,7 +45,7 @@ classdef Br2Fr < handle
             datFolder = obj.nsF.datFolders(contains(obj.nsF.datFolders, obj.nsF.fDate(obj.index)));
         end
         
-        function MetaTags = loadTags(obj) %#ok<STOUT>
+        function MetaTags = loadTags(obj)
             name = split(obj.fileNames(1), '.');
             name = name{1};
             name_ = sprintf("%sTags.mat", name);
@@ -74,13 +74,25 @@ classdef Br2Fr < handle
             if ~exist(folderName,"dir")
                 mkdir(folderName)
             end
-            fprintf("====================\n")
             fprintf("%s\n",obj.folder)
             dirExist = checkExist(obj, "csv");
             Channels_ = obj.Channels(~dirExist);
+            %% only select valid Channels
+            if obj.nsF.Monkey == "p"
+                load('DriverUnitPatamon.mat','T');
+            end
+            Trecord =T(T.Date == double(obj.nsF.fDate(obj.index)),:);          
+            if isempty(Trecord)
+                error("no related driver record")
+            end
             if sum(dirExist) == 0
                 fprintf("saving\n")
-                obj.brTodat(fileName, folderName, Channels_);
+                validChan = setdiff(Channels_,setdiff(Channels_,unique([Trecord.SU{1};Trecord.MU{1}])));
+                if ~isempty(validChan)
+                    obj.brTodat(fileName, folderName, validChan);
+                else
+                    fprintf("no valid channels\n")
+                end
             end
             fprintf("sorting\n")
             [PRM, csvNames] = createPRM(folderName);
@@ -142,8 +154,6 @@ classdef Br2Fr < handle
             end
             
             %% openNS6 and save dat
-            dbstop if error
-            %             addpath(genpath('NPMK'))
             file = strcat(obj.nsF.fPath, "/", fileName);
             % one folder for each dat
             chanNum = string(channels);
@@ -206,8 +216,7 @@ classdef Br2Fr < handle
                 fprintf("\n")
             end
             clear NS6
-            rmpath(genpath('NPMK'))
-            if length(dirFolders(folderName)) ~= length(validChannels)
+            if length(dirFolders(folderName)) ~= length(channels)
                 error("not all valid channels being open")
             end
         end

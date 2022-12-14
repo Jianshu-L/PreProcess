@@ -19,11 +19,6 @@ classdef readCSV < handle
             obj.dataPath = dataPath;
             obj.folderNames = dirFolders(dataPath);
             obj.folderNames = obj.folderNames(contains(obj.folderNames, Monkey));
-            temp = split(obj.csvNames,{'-', '.'});
-            chanNum = temp(:,2);
-            validChan_ = double(chanNum');
-            validChan_(2,:) = 0;
-            obj.validChan = validChan_;
         end
         
         function Date = get.Date(obj)
@@ -50,6 +45,15 @@ classdef readCSV < handle
                 obj.LeastFiringCount = obj.timeLength*3600;
                 obj.RefractoryPeriod = 90; % 3ms
             end
+            temp = split(obj.csvNames,{'-', '.'});
+            if size(temp,2) == 1
+                chanNum = temp(2);
+            else
+                chanNum = temp(:,2);
+            end
+            validChan_ = double(chanNum');
+            validChan_(2,:) = 0;
+            obj.validChan = validChan_;
         end
         
         function clearVar(obj)

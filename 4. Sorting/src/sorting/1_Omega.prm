@@ -1,4 +1,4 @@
-prb_file = '1_Omega'
+prb_file = '1_Pacman'
 
 traces = dict(
     raw_data_files=[experiment_name + '.dat'],

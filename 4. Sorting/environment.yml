@@ -1,6 +1,6 @@
-name: klusta
+name: klusta-3.5
 dependencies:
-  - python
+  - python=3.5
   - pip
   - numpy
   - scipy
@@ -11,3 +11,4 @@ dependencies:
     - klustakwik2
     - tqdm
     - click
+    - klusta

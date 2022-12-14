@@ -1,4 +1,4 @@
-function plot_wf(ns6Names, savePath, T)
+function plot_wf(ns6Names, savePath, T, Monkey)
 %% init variables
 if ~exist(savePath, "dir")
     mkdir(savePath);
@@ -6,11 +6,17 @@ end
 if ~exist(strcat(savePath,"/PNG"), "dir")
     mkdir(strcat(savePath,"/PNG"));
 end
+if Monkey == 'o'
+    chan_all = 160;
+else
+    chan_all = 128;
+end
 clear NS6
 Done = 0;
 %% main loop
-for chan = 1:160
+for chan = 1:chan_all
     if mod(chan,32) == 1
+        fprintf("\n")
         % open ns6
         clear datIall
         for fi = 1:length(ns6Names)
@@ -29,8 +35,9 @@ for chan = 1:160
     if ~any(chan == unique(T.Channel))
         continue
     end
-    fprintf("%d,%d\n",chan,chan-32*(Done-1));
-    fprintf("dataIall length: %d\n", length(datIall(:,1)));
+    fprintf("%d ", chan)
+%     fprintf("%d,%d\n",chan,chan-32*(Done-1));
+%     fprintf("dataIall length: %d\n", length(datIall(:,1)));
     % get waveform of every cluster
     T_ = T(T.Channel == chan,:);
     j = 0;
@@ -41,7 +48,7 @@ for chan = 1:160
         spikesT = T_.time_samples(T_.cluster_number == num);
         waveform = zeros(length(spikesT),48);
         parfor i = 1:length(spikesT)
-            waveform(i,:) = getWF(spikesT, datI, i)
+            waveform(i,:) = getWF(spikesT, datI, i);
         end
         wfM(j,:) = mean(waveform,1);
         Num(j) = num;
@@ -72,5 +79,10 @@ end
 end
 
 function waveform = getWF(spikesT, datI, i)
-waveform = datI(spikesT(i)-16:spikesT(i)+31);
+if spikesT(i)+31 > length(datI)
+    waveform = datI(spikesT(i)-16:end);
+    waveform = [waveform,ones(1,48 - length(waveform)) * -1];
+else
+    waveform = datI(spikesT(i)-16:spikesT(i)+31);
+end
 end
