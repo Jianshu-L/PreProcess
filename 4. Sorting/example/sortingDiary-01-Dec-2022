@@ -1,0 +1,119 @@
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fread')" style="font-weight:bold">fread</a>
+Invalid file identifier. Use fopen to generate a valid file identifier.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('openNSx', 'C:\Users\jsli\Documents\MATLAB\PreProcess\4. Sorting\example\NPMK-5.5.0.0\NPMK\openNSx.m', 494)" style="font-weight:bold">openNSx</a> (<a href="matlab: opentoline('C:\Users\jsli\Documents\MATLAB\PreProcess\4. Sorting\example\NPMK-5.5.0.0\NPMK\openNSx.m',494,0)">line 494</a>)
+NSx.MetaTags.FileTypeID   = fread(FID, [1,8]   , 'uint8=>char');
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('doSorting>brTodat', 'C:\Users\jsli\Documents\MATLAB\PreProcess\4. Sorting\example\doSorting.m', 94)" style="font-weight:bold">doSorting>brTodat</a> (<a href="matlab: opentoline('C:\Users\jsli\Documents\MATLAB\PreProcess\4. Sorting\example\doSorting.m',94,0)">line 94</a>)
+        openNSx(char(file_),'uv', char(sprintf('c:%d:%d', min(c_), max(c_))));
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('doSorting', 'C:\Users\jsli\Documents\MATLAB\PreProcess\4. Sorting\example\doSorting.m', 32)" style="font-weight:bold">doSorting</a> (<a href="matlab: opentoline('C:\Users\jsli\Documents\MATLAB\PreProcess\4. Sorting\example\doSorting.m',32,0)">line 32</a>)
+brTodat(file, saveName, validChannels, validChannels);
+} 
+<a href="matlab: opentoline('C:\Users\jsli\Documents\MATLAB\PreProcess\4. Sorting\example\NPMK-5.5.0.0\NPMK\openNSx.m',494,1)">494 </a>NSx.MetaTags.FileTypeID   = fread(FID, [1,8]   , 'uint8=>char');
+[a,b] = fopen([path fname], 'r', 'ieee-le')
+
+a =
+
+    -1
+
+
+b =
+
+    'Permission denied'
+
+if system_dependent('IsDebugMode')==1, dbquit; end
+OpenFID = fopen('all');
+for k = 1:numel(OpenFID)
+    [filename, permission] = fopen(OpenFID(k));
+    fprintf('Open: %s [%s]\n', filename, permission);
+end
+[a,b] = fopen("H:\datafile20210427p001.ns6", 'r', 'ieee-le')
+
+a =
+
+    -1
+
+
+b =
+
+    'Permission denied'
+
+[a,b] = fopen('H:\datafile20210427p001.ns6', 'r', 'ieee-le')
+
+a =
+
+    -1
+
+
+b =
+
+    'Permission denied'
+
+cd H:/
+[a,b] = fopen('datafile20210427p001.ns6', 'r', 'ieee-le')
+
+a =
+
+    -1
+
+
+b =
+
+    'Permission denied'
+
+[a,b] = fopen('datafile20210427p001.ns6')
+
+a =
+
+    -1
+
+
+b =
+
+    'Permission denied'
+
+[a,b] = fopen('datafile20210427p001.ns6')
+
+a =
+
+    -1
+
+
+b =
+
+    'Permission denied'
+
+[a,b] = fopen('datafile20210427p001.ns6')
+
+a =
+
+    -1
+
+
+b =
+
+    'Permission denied'
+
+[a,b] = fopen('datafile20210427p001.nev')
+
+a =
+
+    -1
+
+
+b =
+
+    'Permission denied'
+
+[a,b] = fopen('datafile20210427p001.ccf')
+
+a =
+
+    -1
+
+
+b =
+
+    'Permission denied'
+
